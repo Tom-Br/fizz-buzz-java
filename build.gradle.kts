@@ -5,3 +5,31 @@
  * Learn more about Gradle by exploring our samples at https://docs.gradle.org/8.0.2/samples
  * This project uses @Incubating APIs which are subject to change.
  */
+
+plugins {
+    `java-library`
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
+dependencies {
+    testImplementation(platform("org.junit:junit-bom:5.9.3"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.assertj:assertj-core:3.24.2")
+}
+
+tasks.test {
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
+}
